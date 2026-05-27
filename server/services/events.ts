@@ -5,6 +5,7 @@ export interface Event {
     title: string;
     date: string;
     location_id: number;
+    location_name: string;
     price: number;
     theme: string;
     image: string;
@@ -28,4 +29,19 @@ export async function getEventById(id: number): Promise<Event> {
         WHERE e.id = ${id}
     `;
     return events[0];
+}
+
+export async function createEvent(title: string, date: string, location_id: number, price: number, theme: string): Promise<void> {
+    await sql`
+        INSERT INTO events (title, date, location_id, price, theme)
+        VALUES (${title}, ${date}, ${location_id}, ${price}, ${theme})
+    `;
+}
+
+export async function updateEvent(id: number, title: string, date: string, location_id: number, price: number, theme: string): Promise<void> {
+    await sql`
+        UPDATE events
+        SET title = ${title}, date = ${date}, location_id = ${location_id}, price = ${price}, theme = ${theme}
+        WHERE id = ${id}
+    `;
 }

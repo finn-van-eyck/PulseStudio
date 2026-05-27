@@ -23,3 +23,18 @@ export async function getLocationById(id: number): Promise<Location> {
     `;
     return locations[0];
 }
+
+export async function createLocation(name: string, description: string, capacity: number): Promise<void> {
+    await sql`
+        INSERT INTO locations (name, description, capacity)
+        VALUES (${name}, ${description}, ${capacity})
+    `;
+}
+
+export async function updateLocation(id: number, name: string, description: string, capacity: number): Promise<void> {
+    await sql`
+        UPDATE locations
+        SET name = ${name}, description = ${description}, capacity = ${capacity}
+        WHERE id = ${id}
+    `;
+}
