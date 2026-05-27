@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response } from "express";
 import path from "path";
 import expressLayouts from "express-ejs-layouts";
 
@@ -19,6 +19,10 @@ app.set("layout", "layouts/main");
 
 // Static files
 app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/", (req: Request, res: Response) => {
+    res.render("index");
+});
 
 app.listen(PORT, () => {
     console.log(`Server draait op http://localhost:${PORT}`);
