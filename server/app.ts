@@ -26,14 +26,14 @@ app.use(cookieParser());
 
 // Template engine
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(process.cwd(), "server", "views"));
 
 // Layouts
 app.use(expressLayouts);
 app.set("layout", "layouts/main");
 
 // Static files
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(process.cwd(), "server", "public")));
 
 // CSRF middleware
 app.use((req: Request, res: Response, next: NextFunction) => {
