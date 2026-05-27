@@ -1,6 +1,8 @@
 import postgres, { Sql } from "postgres";
+import dotenv from "dotenv";
+dotenv.config();
 
-const DB_URL: string = "postgresql://postgres:PulseStudio123.@db.boqjrpwiprtvrkkzmubp.supabase.co:5432/postgres";
-const sql: Sql = postgres(DB_URL);
+const SB_POSTGRES_URL: string = process.env.POSTGRES_URL || "";
+const sql: Sql = postgres(SB_POSTGRES_URL);
 
 export default sql;
