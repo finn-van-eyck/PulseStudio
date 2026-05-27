@@ -4,6 +4,8 @@ dotenv.config();
 import express, { Application, Request, Response } from "express";
 import path from "path";
 import expressLayouts from "express-ejs-layouts";
+import eventsRouter from "./routes/events";
+import locationsRouter from "./routes/locations";
 
 const app: Application = express();
 const PORT: number = 3000;
@@ -23,9 +25,12 @@ app.set("layout", "layouts/main");
 // Static files
 app.use(express.static(path.join(__dirname, "public")));
 
+// Routes
 app.get("/", (req: Request, res: Response) => {
     res.render("index");
 });
+app.use("/events", eventsRouter);
+app.use("/locations", locationsRouter);
 
 app.listen(PORT, () => {
     console.log(`Server draait op http://localhost:${PORT}`);
