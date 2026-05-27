@@ -7,6 +7,7 @@ import expressLayouts from "express-ejs-layouts";
 import eventsRouter from "./routes/events";
 import locationsRouter from "./routes/locations";
 import bookingsRouter from "./routes/bookings";
+import apiRouter from "./routes/api";
 import { dashboard } from "./controllers/dashboardController";
 
 const app: Application = express();
@@ -32,6 +33,7 @@ app.get("/", dashboard);
 app.use("/events", eventsRouter);
 app.use("/locations", locationsRouter);
 app.use("/bookings", bookingsRouter);
+app.use("/api", apiRouter);
 
 app.listen(PORT, () => {
     console.log(`Server draait op http://localhost:${PORT}`);
