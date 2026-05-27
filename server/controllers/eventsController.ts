@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { getAllEvents, getEventById, createEvent, updateEvent, Event } from "../services/events";
 import { getAllLocations } from "../services/locations";
+import { getSeatsByEvent } from "../services/seats";
 
 export async function eventsList(req: Request, res: Response) {
     const events: Event[] = await getAllEvents();
@@ -11,7 +12,8 @@ export async function eventsDetail(req: Request, res: Response) {
     const id = parseInt(req.params.id as string);
     const event = await getEventById(id);
     const locations = await getAllLocations();
-    res.render("events/detail", { event, locations });
+    const seats = await getSeatsByEvent(id);
+    res.render("events/detail", { event, locations, seats });
 }
 
 export async function eventsCreate(req: Request, res: Response) {

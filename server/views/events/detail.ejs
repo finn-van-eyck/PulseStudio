@@ -3,7 +3,7 @@
     <a href="/events" class="btn btn-secondary">Terug</a>
 </div>
 
-<div class="card">
+<div class="card mb-4">
     <div class="card-body">
         <form action="/events/<%= event.id %>" method="POST">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
@@ -33,5 +33,25 @@
             </div>
             <button type="submit" class="btn btn-primary">Opslaan</button>
         </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">Zaalplan</h5>
+    </div>
+    <div class="card-body">
+        <div class="d-flex gap-3 mb-3">
+            <span><span class="badge bg-success">■</span> Beschikbaar</span>
+            <span><span class="badge bg-danger">■</span> Bezet</span>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <% seats.forEach(seat => { %>
+            <div class="seat-box <%= seat.is_booked ? 'bg-danger' : 'bg-success' %> text-white rounded d-flex align-items-center justify-content-center"
+                style="width: 45px; height: 45px; font-size: 12px; font-weight: bold;">
+                <%= seat.label %>
+            </div>
+            <% }) %>
+        </div>
     </div>
 </div>
