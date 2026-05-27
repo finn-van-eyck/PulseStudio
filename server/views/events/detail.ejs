@@ -5,7 +5,7 @@
 
 <div class="card mb-4">
     <div class="card-body">
-        <form action="/events/<%= event.id %>" method="POST">
+        <form action="/events/<%= event.id %>" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="mb-3">
                 <label class="form-label">Titel</label>
@@ -30,6 +30,13 @@
             <div class="mb-3">
                 <label class="form-label">Thema</label>
                 <input type="text" name="theme" class="form-control" value="<%= event.theme %>">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Afbeelding</label>
+                <% if (event.image) { %>
+                <img src="<%= event.image %>" class="d-block mb-2" style="max-height: 150px;">
+                <% } %>
+                <input type="file" name="image" class="form-control" accept="image/*">
             </div>
             <button type="submit" class="btn btn-primary">Opslaan</button>
         </form>
