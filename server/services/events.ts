@@ -13,9 +13,13 @@ export interface Event {
 
 export async function getAllEvents(): Promise<Event[]> {
     const events: Event[] = await sql`
-        SELECT e.*, l.name as location_name 
+        SELECT e.*, l.name as location_name,
+        l.capacity - COUNT(DISTINCT bs.seat_id) as available_seats
         FROM events e
         JOIN locations l ON e.location_id = l.id
+        LEFT JOIN bookings b ON b.event_id = e.id
+        LEFT JOIN booking_seats bs ON bs.booking_id = b.id
+        GROUP BY e.id, l.name, l.capacity
         ORDER BY e.date ASC
     `;
     return events;
