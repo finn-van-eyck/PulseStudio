@@ -5,6 +5,7 @@ import express, { Application, Request, Response, NextFunction } from "express";
 import path from "path";
 import expressLayouts from "express-ejs-layouts";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import Tokens from "csrf";
 import eventsRouter from "./routes/events";
 import locationsRouter from "./routes/locations";
@@ -23,6 +24,11 @@ app.use(express.json());
 
 // Cookie parser
 app.use(cookieParser());
+
+// CORS
+app.use(cors({
+    origin: "*"
+}));
 
 // Template engine
 app.set("view engine", "ejs");
