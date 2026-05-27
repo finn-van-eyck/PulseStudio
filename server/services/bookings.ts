@@ -40,3 +40,32 @@ export async function getBookingSeats(booking_id: number): Promise<any[]> {
     `;
     return seats;
 }
+export async function getTodayBookingsCount(): Promise<number> {
+    const result: any[] = await sql`
+        SELECT COUNT(*) as total
+        FROM bookings
+        WHERE DATE(created_at) = CURRENT_DATE
+    `;
+    return parseInt(result[0].total);
+}
+
+export async function getMonthlyBookings(): Promise<any[]> {
+    const result: any[] = await sql`
+        SELECT 
+            TO_CHAR(created_at, 'Month') as month,
+            COUNT(*) as total
+        FROM bookings
+        GROUP BY TO_CHAR(created_at, 'Month'), EXTRACT(MONTH FROM created_at)
+        ORDER BY EXTRACT(MONTH FROM created_at) ASC
+    `;
+    return result;
+}
+
+export async function getYearlyRevenue(): Promise<number> {
+    const result: any[] = await sql`
+        SELECT COALESCE(SUM(total_price), 0) as total
+        FROM bookings
+        WHERE EXTRACT(YEAR FROM created_at) = EXTRACT(YEAR FROM CURRENT_DATE)
+    `;
+    return parseFloat(result[0].total);
+}

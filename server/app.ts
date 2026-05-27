@@ -7,6 +7,7 @@ import expressLayouts from "express-ejs-layouts";
 import eventsRouter from "./routes/events";
 import locationsRouter from "./routes/locations";
 import bookingsRouter from "./routes/bookings";
+import { dashboard } from "./controllers/dashboardController";
 
 const app: Application = express();
 const PORT: number = 3000;
@@ -27,9 +28,7 @@ app.set("layout", "layouts/main");
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
-app.get("/", (req: Request, res: Response) => {
-    res.render("index");
-});
+app.get("/", dashboard);
 app.use("/events", eventsRouter);
 app.use("/locations", locationsRouter);
 app.use("/bookings", bookingsRouter);

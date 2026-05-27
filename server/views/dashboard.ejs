@@ -1,0 +1,47 @@
+<h1 class="mb-4">Dashboard</h1>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5 class="card-title">Boekingen vandaag</h5>
+                <p class="card-text fs-1"><%= todayCount %></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5 class="card-title">Jaaromzet</h5>
+                <p class="card-text fs-1">€ <%= yearlyRevenue %></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">Boekingen per maand</div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Maand</th>
+                    <th>Aantal boekingen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% monthlyBookings.forEach(row => { %>
+                <tr>
+                    <td><%= row.month %></td>
+                    <td><%= row.total %></td>
+                </tr>
+                <% }) %>
+                <% if (monthlyBookings.length === 0) { %>
+                <tr>
+                    <td colspan="2">Nog geen boekingen</td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
