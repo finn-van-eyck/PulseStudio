@@ -6,6 +6,7 @@ import path from "path";
 import expressLayouts from "express-ejs-layouts";
 import eventsRouter from "./routes/events";
 import locationsRouter from "./routes/locations";
+import bookingsRouter from "./routes/bookings";
 
 const app: Application = express();
 const PORT: number = 3000;
@@ -31,6 +32,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 app.use("/events", eventsRouter);
 app.use("/locations", locationsRouter);
+app.use("/bookings", bookingsRouter);
 
 app.listen(PORT, () => {
     console.log(`Server draait op http://localhost:${PORT}`);

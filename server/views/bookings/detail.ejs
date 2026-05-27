@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Boeking #<%= booking.id %></h1>
+    <a href="/bookings" class="btn btn-secondary">Terug</a>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">Klantgegevens</div>
+            <div class="card-body">
+                <p><strong>Naam:</strong> <%= booking.customer_name %></p>
+                <p><strong>Email:</strong> <%= booking.customer_email %></p>
+                <p><strong>Betaalmethode:</strong> <%= booking.payment_method %></p>
+                <p><strong>Datum:</strong> <%= new Date(booking.created_at).toLocaleDateString('nl-BE') %></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">Eventgegevens</div>
+            <div class="card-body">
+                <p><strong>Event:</strong> <%= booking.event_title %></p>
+                <p><strong>Totaalprijs:</strong> € <%= booking.total_price %></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">Gereserveerde zitplaatsen</div>
+    <div class="card-body">
+        <div class="d-flex flex-wrap gap-2">
+            <% seats.forEach(seat => { %>
+            <span class="badge bg-primary fs-6"><%= seat.label %></span>
+            <% }) %>
+        </div>
+    </div>
+</div>
