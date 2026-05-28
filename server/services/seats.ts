@@ -8,7 +8,7 @@ export interface Seat {
 
 export async function getSeatsByEvent(event_id: number): Promise<Seat[]> {
     const seats: Seat[] = await sql`
-        SELECT 
+        SELECT DISTINCT ON (s.id)
             s.id,
             s.label,
             CASE 
@@ -22,7 +22,7 @@ export async function getSeatsByEvent(event_id: number): Promise<Seat[]> {
                 SELECT id FROM bookings WHERE event_id = ${event_id}
             )
         WHERE e.id = ${event_id}
-        ORDER BY s.label ASC
+        ORDER BY s.id ASC
     `;
     return seats;
 }
