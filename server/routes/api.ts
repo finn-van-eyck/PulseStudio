@@ -1,6 +1,7 @@
 import express, { Router, Request, Response } from "express";
 import { getAllLocations } from "../services/locations";
 import { getAllEvents } from "../services/events";
+import { getSeatsByEvent } from "../services/seats";
 import sql from "../services/db";
 
 const router: Router = express.Router();
@@ -15,6 +16,13 @@ router.get("/locaties", async (req: Request, res: Response) => {
 router.get("/events", async (req: Request, res: Response) => {
     const events = await getAllEvents();
     res.json(events);
+});
+
+// GET /api/seats/:eventId
+router.get("/seats/:eventId", async (req: Request, res: Response) => {
+    const eventId = parseInt(req.params.eventId as string);
+    const seats = await getSeatsByEvent(eventId);
+    res.json(seats);
 });
 
 // POST /api/book
