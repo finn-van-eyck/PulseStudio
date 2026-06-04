@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getAllEvents, getEventById, createEvent, updateEvent, Event } from "../services/events";
+import { getAllEvents, getEventById, createEvent, updateEvent, Event, deleteEvent } from "../services/events";
 import { getAllLocations } from "../services/locations";
 import { getSeatsByEvent } from "../services/seats";
 import { upload, uploadToCloudinary } from "../services/upload";
@@ -41,6 +41,12 @@ export async function eventsUpdate(req: Request, res: Response) {
         image = await uploadToCloudinary(req.file.buffer, `event_${Date.now()}`);
     }
     await updateEvent(id, title, date, parseInt(location_id), parseFloat(price), theme, image);
+    res.redirect("/events");
+}
+
+export async function eventsDelete(req: Request, res: Response) {
+    const id = parseInt(req.params.id as string);
+    await deleteEvent(id);
     res.redirect("/events");
 }
 

@@ -49,3 +49,8 @@ export async function updateEvent(id: number, title: string, date: string, locat
         WHERE id = ${id}
     `;
 }
+
+export async function deleteEvent(id: number): Promise<void> {
+    await sql`DELETE FROM bookings WHERE event_id = ${id}`;
+    await sql`DELETE FROM events WHERE id = ${id}`;
+}

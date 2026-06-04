@@ -38,3 +38,7 @@ export async function updateLocation(id: number, name: string, description: stri
         WHERE id = ${id}
     `;
 }
+
+export async function deleteLocation(id: number): Promise<void> {
+    await sql`DELETE FROM locations WHERE id = ${id}`;
+}

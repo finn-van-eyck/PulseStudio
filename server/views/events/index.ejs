@@ -24,6 +24,10 @@
             <td><%= event.theme %></td>
             <td>
                 <a href="/events/<%= event.id %>" class="btn btn-sm btn-warning">Bewerken</a>
+                <form action="/events/<%= event.id %>/delete" method="POST" style="display:inline">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Ben je zeker?')">Verwijderen</button>
+                </form>
             </td>
         </tr>
         <% }) %>
