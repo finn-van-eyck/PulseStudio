@@ -69,3 +69,8 @@ export async function getYearlyRevenue(): Promise<number> {
     `;
     return parseFloat(result[0].total);
 }
+
+export async function deleteBooking(id: number): Promise<void> {
+    await sql`DELETE FROM booking_seats WHERE booking_id = ${id}`;
+    await sql`DELETE FROM bookings WHERE id = ${id}`;
+}
